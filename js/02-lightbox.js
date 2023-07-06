@@ -16,24 +16,21 @@ const galleryItemsMarkup =
           />
         </a>
       </li>`
-    }).join('');
+    });
 
-galleryEl.insertAdjacentHTML("afterbegin", galleryItemsMarkup);
+galleryEl.insertAdjacentHTML("afterbegin", galleryItemsMarkup.join(''));
 
 galleryEl.addEventListener("click", openImg);
 
 function openImg(event){
     event.preventDefault();
-
-    if (event.target.nodeName !== "IMG"){
-        return;
-    }
-    let gallery =  new SimpleLightbox('.gallery a', {
+    };
+    const Lightbox =  new SimpleLightbox('.gallery a', {
                 captionsData: 'alt',
                 captionDelay: 250,
              }); 
-    
-}
+            
+
 
 
 

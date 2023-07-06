@@ -19,6 +19,7 @@ const galleryItemsMarkup =
     }).join('');
 
 galleryEl.insertAdjacentHTML("afterbegin", galleryItemsMarkup);
+galleryEl.addEventListener("click", openImg);
 
 function openImg(event){
     event.preventDefault();
@@ -26,12 +27,22 @@ function openImg(event){
     if (event.target.nodeName !== "IMG"){
         return;
     }
-        const instance = basicLightbox.create(`<img src="${event.target.dataset.source}" width="800" height="600">`)
+     const instance = basicLightbox.create(`<img src="${event.target.dataset.source}" width="800" height="600">`);
 
-instance.show()
-    
+
+instance.element().addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    instance.close();
+  }
+});
+
+instance.show();
+galleryEl.addEventListener("keydown", handleKeyDown);
+
+function handleKeyDown(event) {
+  if (event.key === "Escape") {
+    instance.close();
+    galleryEl.removeEventListener("keydown", handleKeyDown);
+  }
 }
-
-galleryEl.addEventListener("click", openImg);
-
-
+}
